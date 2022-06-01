@@ -26,7 +26,7 @@ class User(AbstractUser):
             str: URL for user detail.
 
         """
-        return reverse("users:detail", kwargs={"username": self.username})
+        return reverse("users:detail", kwargs={"address": self.id})
 
     def generate_address(self):
         """Generate a blockchain address for the user.

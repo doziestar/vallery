@@ -11,11 +11,7 @@ from django.urls import reverse
 from vallery.users.forms import UserAdminChangeForm
 from vallery.users.models import User
 from vallery.users.tests.factories import UserFactory
-from vallery.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from vallery.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 
@@ -39,7 +35,7 @@ class TestUserUpdateView:
 
         view.request = request
 
-        assert view.get_success_url() == f"/users/{user.username}/"
+        assert view.get_success_url() == f"/users/{user.id}/"
 
     def test_get_object(self, user: User, rf: RequestFactory):
         view = UserUpdateView()
@@ -78,7 +74,7 @@ class TestUserRedirectView:
 
         view.request = request
 
-        assert view.get_redirect_url() == f"/users/{user.username}/"
+        assert view.get_redirect_url() == f"/users/{user.id}/"
 
 
 class TestUserDetailView:
@@ -86,7 +82,7 @@ class TestUserDetailView:
         request = rf.get("/fake-url/")
         request.user = UserFactory()
 
-        response = user_detail_view(request, username=user.username)
+        response = user_detail_view(request, address=user.id)
 
         assert response.status_code == 200
 
@@ -94,7 +90,8 @@ class TestUserDetailView:
         request = rf.get("/fake-url/")
         request.user = AnonymousUser()
 
-        response = user_detail_view(request, username=user.username)
+        response = user_detail_view(request, address=user.id)
+
         login_url = reverse(settings.LOGIN_URL)
 
         assert isinstance(response, HttpResponseRedirect)
