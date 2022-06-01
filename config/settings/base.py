@@ -61,7 +61,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",  # Handy template tags
     "django.contrib.admin",
     "django.forms",
 ]
@@ -72,6 +72,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_celery_beat",
+    "django_extensions",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -80,6 +81,10 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "vallery.users",
+    "vallery.core",
+    "vallery.collection",
+    "vallery.market",
+    "vallery.funds"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
