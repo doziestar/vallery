@@ -26,7 +26,7 @@ class User(AbstractUser):
             str: URL for user detail.
 
         """
-        return reverse("users:detail", kwargs={"address": self.id})
+        return reverse("users:detail", kwargs={"id": self.id})
 
     def generate_address(self):
         """Generate a blockchain address for the user.
@@ -38,22 +38,22 @@ class User(AbstractUser):
         return generate_blockchain_address()
 
 
-class BlockChainAddress(models.Model):
-    """Store User BlockChain Wallet"""
+# class BlockChainAddress(models.Model):
+#     """Store User BlockChain Wallet"""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    address = models.CharField(max_length=255, unique=True, primary_key=True)
-    private_key = models.CharField(max_length=255, unique=True)
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     address = models.CharField(max_length=255, unique=True, primary_key=True)
+#     private_key = models.CharField(max_length=255, unique=True)
 
-    def generate_address(self):
-        """Generate a blockchain address for the user.
+#     def generate_address(self):
+#         """Generate a blockchain address for the user.
 
-        Returns:
-            str: A blockchain address.
+#         Returns:
+#             str: A blockchain address.
 
-        """
-        self.address, self.private_key = self.generate_private_key()
-        self.save()
+#         """
+#         self.address, self.private_key = generate_blockchain_address()
+#         self.save()
 
 
 class Profile(models.Model):
@@ -65,9 +65,10 @@ class Profile(models.Model):
     total_sold = models.DecimalField(decimal_places=2, max_digits=10, default=0)
     number_of_collections = models.IntegerField(default=0)
     number_of_available_collections = models.IntegerField(default=0)
+    signal = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.user.username
+        return self.user.id
 
     @property
     def sold(self):

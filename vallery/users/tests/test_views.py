@@ -82,7 +82,7 @@ class TestUserDetailView:
         request = rf.get("/fake-url/")
         request.user = UserFactory()
 
-        response = user_detail_view(request, address=user.id)
+        response = user_detail_view(request, id=user.id)
 
         assert response.status_code == 200
 
@@ -90,7 +90,7 @@ class TestUserDetailView:
         request = rf.get("/fake-url/")
         request.user = AnonymousUser()
 
-        response = user_detail_view(request, address=user.id)
+        response = user_detail_view(request, id=user.id)
 
         login_url = reverse(settings.LOGIN_URL)
 
