@@ -10,7 +10,7 @@ pytestmark = pytest.mark.django_db
 class TestUserViewSet:
     def test_get_queryset(self, user: User, rf: RequestFactory):
         view = UserViewSet()
-        request = rf.get(f"http://localhost:8000/api/users/{user.id}/")
+        request = rf.get("/fake_url/")
         request.user = user
 
         view.request = request
@@ -19,7 +19,7 @@ class TestUserViewSet:
 
     def test_me(self, user: User, rf: RequestFactory):
         view = UserViewSet()
-        request = rf.get(f"http://localhost:8000/api/users/{user.id}/")
+        request = rf.get("/fake_url/")
         request.user = user
 
         view.request = request
@@ -27,7 +27,7 @@ class TestUserViewSet:
         response = view.me(request)
 
         assert response.data == {
-            "id": user.id,
+            "username": user.username,
             "name": user.name,
-            "url": f"http://localhost:8000/api/users/{user.id}/",
+            "url": f"http://testserver/api/users/{user.id}/",
         }
