@@ -16,7 +16,7 @@ Pages:
 
 
 class HomePage(TemplateView):
-    template_name: str = "core/home.html"
+    template_name: str = "core/index.html"
 
 
 class AboutPage(TemplateView):
