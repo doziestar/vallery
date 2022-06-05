@@ -37,7 +37,7 @@ class Nft(models.Model):
     id = models.CharField(
         max_length=32, primary_key=True, unique=True
     )  # blockchain address
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    collections = models.ForeignKey(Collection, on_delete=models.CASCADE)
     name = models.CharField(max_length=32)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

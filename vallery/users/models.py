@@ -66,8 +66,12 @@ class Profile(models.Model):
     number_of_collections = models.IntegerField(default=0)
     number_of_available_collections = models.IntegerField(default=0)
     signal = models.BooleanField(default=False)
-    followers = models.ManyToManyField("self", symmetrical=False, blank=True)
-    following = models.ManyToManyField("self", symmetrical=False, blank=True)
+    followers = models.ManyToManyField(
+        User, symmetrical=False, blank=True, related_name="followers"
+    )
+    following = models.ManyToManyField(
+        User, symmetrical=False, blank=True, related_name="following"
+    )
 
     def __str__(self) -> str:
         return self.user.id
